@@ -1,0 +1,29 @@
+{
+  "name": "rest_api",
+  "version": "1.0.0",
+  "description": "rest API",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "keywords": [],
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "node": "18.18",
+    "nodemon": "^3.0.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.23.4",
+    "@babel/core": "^7.23.7",
+    "@babel/node": "^7.22.19",
+    "@babel/preset-env": "^7.23.8",
+    "ava": "^5.3.1"
+  },
+  "presets": [
+    "@babel/preset-env"
+  ]
+}
