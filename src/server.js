@@ -1,6 +1,7 @@
 import express from "express";
 
-import appRoutes from "./routes";
+import userRoutes from "./users.routes";
+import mainRoutes from "./main.routes";
 
 const port = 3000;
 const app = express();
@@ -12,7 +13,8 @@ const STATUS = {
 
 app.use(express.json());
 
-app.use("/v1", appRoutes);
+app.use("/v1/", mainRoutes);
+app.use("/v1/user", userRoutes);
 
 app.listen(port, () => {
   console.log(`hey go to local host: ${port} `);

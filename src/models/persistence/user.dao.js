@@ -1,8 +1,10 @@
+import { log } from "console";
 import users from "../data/users.data";
 
 const insert = (details) => {
   const newUser = { ...details, id: users.length + 1 };
   users.push(newUser);
+  console.log(newUser);
   return true;
 };
 
@@ -10,11 +12,26 @@ const getAllUsers = () => {
   return users;
 };
 
-const update = (newDetails) => {
+const update = (userID, newDetails) => {
+  let currentUser = false;
+  let userIndex;
+
   users.map((user, index) => {
-    if (user.id === newDetails.id) {
+    if (user.id === userID) {
+      currentUser = user;
+      userIndex = index;
     }
   });
+  if (!currentUser) {
+    return false;
+  }
+
+  const updatedUser = Object.assign({}, currentUser, newDetails);
+
+  console.log(currentUser, newDetails);
+  users.splice(userIndex, 1, updatedUser);
+
+  return updatedUser;
 };
 
 const remove = (userId) => {
