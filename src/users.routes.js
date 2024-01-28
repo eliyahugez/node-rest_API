@@ -3,6 +3,7 @@ import { StatusCodes } from "http-status-codes";
 
 import routerRoutes from "./users.routes";
 import userService from "./services/user.service";
+import { status } from "express/lib/response";
 
 const router = express.Router();
 
@@ -47,22 +48,21 @@ router.get("/:id", (req, res) => {
   });
 });
 
-router.post("/", (req, res) => {
-  res.send("hello you are");
-});
+// router.post("/", (req, res) => {
+//   res.send("hello you are");
+// });
 
-router.post("/add", (req, res) => {
+router.post("/", (req, res) => {
   const user = req.body;
 
   const addedUser = userService.addUser(user);
-  console.log("from users.routers", addedUser, user);
   return res.status(StatusCodes.CREATED).send({
     status: STATUS.success,
-    massege: addedUser,
+    user: addedUser,
   });
 });
 
-router.put("/update/:id", (req, res) => {
+router.put("/:id", (req, res) => {
   const { body: user } = req;
 
   const id = parseInt(req.params.id, 10);
@@ -78,6 +78,25 @@ router.put("/update/:id", (req, res) => {
     return res.status(StatusCodes.NOT_FOUND).send({
       status: STATUS.failure,
       massege: `USER ${id} not found `,
+    });
+  }
+});
+
+router.delete("/:id", (req, res) => {
+  const { params } = req;
+  const id = parseInt(params.id, 10);
+  const user = userService.getUser(id);
+
+  if (user) {
+    userService.removeUser(id);
+    return res.status(StatusCodes.OK).send({
+      status: STATUS.success,
+      message: `User ${id} was successfully removed`,
+    });
+  } else {
+    return res.status(StatusCodes.NOT_FOUND).send({
+      status: STATUS.failure,
+      message: `User ${id}  NOT removed`,
     });
   }
 });
